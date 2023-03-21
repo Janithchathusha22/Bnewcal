@@ -10,14 +10,25 @@ import four from "./assets/4.png";
 import five from "./assets/5.png";
 import six from "./assets/6.png";
 import seven from "./assets/7.png";
-import dayjs from 'dayjs';
-import { DemoContainer, DemoItem } from '@mui/x-date-pickers/internals/demo';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 
-import { DateRangePicker } from '@mui/x-date-pickers-pro/DateRangePicker';
+import 'react-date-range/dist/styles.css'; // main style file
+import 'react-date-range/dist/theme/default.css'; // theme css file
+import { DateRangePicker, DefinedRange } from 'react-date-range';
+import {
+  addDays,
+  endOfDay,
+  startOfDay,
+  startOfMonth,
+  endOfMonth,
+  addMonths,
+  startOfWeek,
+  endOfWeek,
+  isSameDay,
+  differenceInCalendarDays,
+} from 'date-fns';
 function AddNumbers() {
-  const [fv, setFv] = useState("");
+  
+  const [fv, setFv] = useState(100000);
   const [rate, setRate] = useState("");
   const [time, setTime] = useState("");
   const [lump, setLump] = useState("");
@@ -26,8 +37,16 @@ function AddNumbers() {
   const [onoffswitch, setonoffswitch] = useState(false);
   const [visibility, setvisibility] = useState("hidden");
   const [topping, setTopping] = useState("Days")
-  const [datepick, setdatepick] = useState("none");
+  const [datepick, setdatepick] = useState("inline");
   const [monthpick, setmonthpick] = useState("none")
+  const [fvs, setFvs] = useState();
+  const [state, setState] = useState([
+    {
+      startDate: new Date(),
+      endDate: addDays(new Date(), 7),
+      key: 'selection'
+    }
+  ]);
   const onOptionChange = e => {
     setTopping(e.target.value)
     if (topping === "Month") {
@@ -41,6 +60,12 @@ function AddNumbers() {
 
   const handleFVChange = (event) => {
     setFv(event.target.value);
+    // setFvs(fv);
+    // var pattern = /(-?\d+)(\d{3})/;
+    // while (pattern.test(fvs))
+    //   fvs = fvs.replace(pattern, "$1,$2");
+    // setFv = fvs;
+    // setFv(fvs);
   };
 
   const handleRateChange = (event) => {
@@ -81,24 +106,25 @@ function AddNumbers() {
   const switchToggle = () => {
     setonoffswitch(!onoffswitch);
     if (onoffswitch === false) {
-      setvisibility("hidden");
-    } else {
       setvisibility("visible");
+    } else {
+      setvisibility("hidden");
     }
     console.log(visibility);
     console.log(onoffswitch);
     // console.log("helofuv");
   };
-  const [value, setValue] = React.useState([
-    dayjs('2022-04-17'),
-    dayjs('2022-04-21'),
-  ]);
+ 
+
   useEffect(() => {
     return () => {
       setvisibility("visible");
       setonoffswitch(false);
-      setFv(0);
+      setFv(100000);
       setTime(0);
+      console.log(value);
+      setdatepick("none");
+      setmonthpick("inline");
       // setdatepick('none');
       // setmonthpick("inline")
     };
@@ -200,7 +226,8 @@ function AddNumbers() {
               <p>Others</p>
             </div>
           </div>
-          <h5>How much do you Need?</h5>
+          <h5>How much do you Need? Rs</h5>
+
           <div className="row">
             {/* <label for="customRange2" class="form-label">Example range</label> */}
             {/* <p>Range Value: {fv}</p>
@@ -214,30 +241,30 @@ function AddNumbers() {
               id="customRange2"
               defaultValue={0}
               onChange={handleFVChange}
-              step={1}
+              step={100000}
             />
 
             <datalist id="values">
-              <option value="0" label="0"></option>
-              <option value="10" label="10"></option>
-              <option value="20" label="20"></option>
-              <option value="30" label="30"></option>
-              <option value="40" label="40"></option>
-              <option value="50" label="50"></option>
-              <option value="60" label="60"></option>
-              <option value="70" label="70"></option>
-              <option value="80" label="80"></option>
-              <option value="90" label="90"></option>
-              <option value="100" label="100"></option>
+              <option value="0" label="100k"></option>
+              <option value="10" label="10000k"></option>
+              <option value="20" label="20000k"></option>
+              <option value="30" label="30000k"></option>
+              <option value="40" label="40000k"></option>
+              <option value="50" label="50000k"></option>
+              <option value="60" label="60000k"></option>
+              <option value="70" label="70000k"></option>
+              <option value="80" label="80000k"></option>
+              <option value="90" label="90000k"></option>
+              <option value="100" label="100000k"></option>
             </datalist>
             <p id="valueDisplay">
-              Rs. =
               <input
-                type="number"
+                type="text"
                 name=""
                 id=""
                 value={fv}
                 onChange={handleFVChange}
+                className="inputfeild_range"
               />
             </p>
           </div>
@@ -254,7 +281,7 @@ function AddNumbers() {
                 checked={topping === "Days"}
                 onChange={onOptionChange}
               />
-              <label htmlFor="regular">In Days</label>
+              <label htmlFor="regular" className="form-check-label">In Days</label>
             </div>
             <div className="col" id="middleRow2">
               <input
@@ -264,24 +291,26 @@ function AddNumbers() {
                 id="month"
                 checked={topping === "Month"}
                 onChange={onOptionChange}
+            
               />
-              <label htmlFor="month">In Month</label>
+              <label htmlFor="month" className="form-check-label">In Month</label>
             </div>
           </div>
 
           <div className="row" style={{
             display: datepick
           }}>
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
-              <DemoContainer components={['DateRangePicker', 'DateRangePicker']}>
-                <DemoItem label="Select Date" component="DateRangePicker">
-                  <DateRangePicker
-                    value={value}
-                    onChange={(newValue) => setValue(newValue)}
-                  />
-                </DemoItem>
-              </DemoContainer>
-            </LocalizationProvider>
+            <DateRangePicker
+              onChange={(item) => setState([item.selection])}
+              showSelectionPreview={true}
+              moveRangeOnFirstSelection={true}
+              months={1}
+              ranges={state}
+              direction="vertical"
+            />
+          
+            {/* <input type="text" name="" id="" value={state} className="inputfeild_range" /> */}
+            
           </div>
 
           <div className="row" style={{
@@ -317,75 +346,76 @@ function AddNumbers() {
               <option value="100" label="60"></option>
             </datalist>
             <p id="valueDisplay">
-              Months: <input type="number" name="" id="" value={time} />
+               <input type="text" name="" id="" value={time} className="inputfeild_range"/>
             </p>
-          </div>
-          <h5>What interest type do you prefer to apply?</h5>
-          <div className="row">
-            <div className="col" id="middleRow1">
-              <div className="form-check">
-                <input
-                  className="form-check-input"
-                  type="radio"
-                  name="flexRadioDefaults"
-                  value={rate}
-                  id="flexRadioDefaults1"
-                />
-                <label
-                  className="form-check-label"
-                  htmlFor="flexRadioDefaults1"
-                >
-                  Fixed Interest Rate
-                </label>
+            <h5>What interest type do you prefer to apply?</h5>
+            <div className="row">
+              <div className="col" id="middleRow1">
+                <div className="form-check">
+                  <input
+                    className="form-check-input"
+                    type="radio"
+                    name="flexRadioDefaults"
+                    value={rate}
+                    id="flexRadioDefaults1"
+                  />
+                  <label
+                    className="form-check-label"
+                    htmlFor="flexRadioDefaults1"
+                  >
+                    Fixed Interest Rate
+                  </label>
+                </div>
               </div>
-            </div>
 
-            <div className="col" id="middleRow2">
-              <div className="form-check">
-                <input
-                  className="form-check-input"
-                  type="radio"
-                  name="flexRadioDefaults"
-                  id="flexRadioDefaults2"
-                  defaultChecked
-                />
-                <label
-                  className="form-check-label"
-                  htmlFor="flexRadioDefaults2"
-                >
-                  Floating Interest Rate
+              <div className="col" id="middleRow2">
+                <div className="form-check">
+                  <input
+                    className="form-check-input"
+                    type="radio"
+                    name="flexRadioDefaults"
+                    id="flexRadioDefaults2"
+                    defaultChecked
+                  />
+                  <label
+                    className="form-check-label"
+                    htmlFor="flexRadioDefaults2"
+                  >
+                    Floating Interest Rate
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div className="row">
+              <div className="col" id="rowview">
+                <span>
+                  <b>Lumpsum Deposit?</b>
+                </span>
+                <label className="switch">
+                  <input
+                    className="switch-input"
+                    type="checkbox"
+                    onClick={switchToggle}
+                  />
+                  <span className="switch-label" data-on="On" data-off="Off" />
+                  <span className="switch-handle" />
                 </label>
+              </div>
+              <div
+                className="col"
+                id="rowview"
+                style={{ visibility: visibility }}
+              >
+                <sapn htmlFor="fname">
+                  <b>Lumpsum Amount (Rs.)</b>
+                </sapn>
+                <input type="text" id="fname" name="fname" />
+                <br />
+                <br />
               </div>
             </div>
           </div>
-          <div className="row">
-            <div className="col" id="rowview">
-              <span>
-                <b>Lumpsum Deposit?</b>
-              </span>
-              <label className="switch">
-                <input
-                  className="switch-input"
-                  type="checkbox"
-                  onClick={switchToggle}
-                />
-                <span className="switch-label" data-on="On" data-off="Off" />
-                <span className="switch-handle" />
-              </label>
-            </div>
-            <div
-              className="col"
-              id="rowview"
-              style={{ visibility: visibility }}
-            >
-              <sapn htmlFor="fname">
-                <b>Lumpsum Amount (Rs.)</b>
-              </sapn>
-              <input type="text" id="fname" name="fname" />
-              <br />
-              <br />
-            </div>
-          </div>
+          
         </div>
         <div className="row" id="flexendcol">
           <h6>
