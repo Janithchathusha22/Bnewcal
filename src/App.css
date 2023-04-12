@@ -457,6 +457,19 @@ body {
 }
 
 /* end */
+#dateRange {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+#dateRanges {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
 
 #rowview {
   display: flex;
@@ -642,6 +655,26 @@ body {
   font-weight: 800;
   font-family: poppins;
   font-size: 11px;
+}
+
+.datepickerinput {
+  
+  font-weight: 400;
+  font-family: poppins;
+  font-size: 15px;
+  color: #1d1212;
+  border-radius: 10px;
+  padding: 10px 20px;
+  border: 2px solid #282c34;
+  margin-top: 10px;
+}
+
+.days {
+  font-weight: bold;
+  font-weight: 800;
+  font-family: poppins;
+  font-size: 19px;
+  color: #e44747;
 }
 
 /* .row #cat1,

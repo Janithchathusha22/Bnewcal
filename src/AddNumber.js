@@ -28,7 +28,7 @@ import {
 
 
 function AddNumbers() {
-  const [start, startRef] = useState();
+  const [days, setDays] = useState(0);
   const [end, endRef] = useState();
   const [fv, setFv] = useState(100000);
   const [rate, setRate] = useState("");
@@ -120,7 +120,15 @@ function AddNumbers() {
     console.log(start);
     console.log(end);
   }
-
+  function calculateDays() {
+    var d1 = document.getElementById("d1").value;
+    var d2 = document.getElementById("d2").value;
+    const dateOne = new Date(d1);
+    const dateTwo = new Date(d2);
+    const time = Math.abs(dateTwo - dateOne);
+    const days = Math.ceil(time / (1000 * 60 * 60 * 24));
+    document.getElementById("output").innerHTML = days;
+  }
   useEffect(() => {
     return () => {
       setvisibility("visible");
@@ -132,6 +140,7 @@ function AddNumbers() {
       setmonthpick("inline");
       // setdatepick('none');
       // setmonthpick("inline")
+      setDays(0);
     };
   }, []);
 
@@ -269,7 +278,7 @@ function AddNumbers() {
                 id=""
                 value={fv}
                 onChange={handleFVChange}
-                className="inputfeild_range"
+                className="inputfeild_range datepickerinput"
               />
             </p>
           </div>
@@ -302,37 +311,25 @@ function AddNumbers() {
             </div>
           </div>
 
-          <div className="" id="rowcolm"
+          <div className="" id="row"
             style={{
               display: datepick
             }}>
 
 
-            <div className="col" >
-              <label htmlFor="">Start :</label>
-              <input type="date" value={start} />
-
+            <div className="col" id="dateRange">
+              <input type="date" id="d1" className="datepickerinput" />
+              <input type="date" id="d2" className="datepickerinput" />
+              <button onClick={calculateDays} className="datepickerinput">Number of Days</button>
             </div>
-            <div className="col">
-              <label htmlFor="">End :</label>
-              <input type="date" value={end} />
-            </div>
-
-          </div>
-          <div className="" id="rowcolm"
-            style={{
-              display: datepick
-            }}>
+            <div className="col" id="dateRanges">
 
 
-            <div className="col" >
-              {/* <button onClick={() => { claculateDate }}> Calculate</button> */}
-            </div>
-            <div className="col">
-
+              <p className="days"><sapn id="output"></sapn> Days</p>
             </div>
 
           </div>
+
 
           <div className="row" style={{
             display: monthpick
@@ -367,7 +364,7 @@ function AddNumbers() {
               <option value="100" label="60"></option>
             </datalist>
             <p id="valueDisplay">
-              <input type="text" name="" id="" value={time} className="inputfeild_range" />
+              <input type="text" name="" id="" value={time} className="inputfeild_range datepickerinput" />
             </p>
             <h5>What interest type do you prefer to apply?</h5>
             <div className="row">
@@ -442,7 +439,7 @@ function AddNumbers() {
                 type="number"
                 min={0}
                 max={100}
-
+                className="datepickerinput"
               /></div>
 
 
