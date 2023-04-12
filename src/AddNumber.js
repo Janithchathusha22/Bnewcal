@@ -11,9 +11,8 @@ import five from "./assets/5.png";
 import six from "./assets/6.png";
 import seven from "./assets/7.png";
 
-import 'react-date-range/dist/styles.css'; // main style file
-import 'react-date-range/dist/theme/default.css'; // theme css file
-import { DateRangePicker, DefinedRange } from 'react-date-range';
+// theme css file
+
 import {
   addDays,
   endOfDay,
@@ -26,8 +25,11 @@ import {
   isSameDay,
   differenceInCalendarDays,
 } from 'date-fns';
+
+
 function AddNumbers() {
-  
+  const [start, startRef] = useState();
+  const [end, endRef] = useState();
   const [fv, setFv] = useState(100000);
   const [rate, setRate] = useState("");
   const [time, setTime] = useState("");
@@ -57,7 +59,7 @@ function AddNumbers() {
       setmonthpick("inline")
     }
   }
-
+  const datarenge = "";
   const handleFVChange = (event) => {
     setFv(event.target.value);
     // setFvs(fv);
@@ -114,7 +116,10 @@ function AddNumbers() {
     console.log(onoffswitch);
     // console.log("helofuv");
   };
- 
+  function claculateDate() {
+    console.log(start);
+    console.log(end);
+  }
 
   useEffect(() => {
     return () => {
@@ -291,26 +296,42 @@ function AddNumbers() {
                 id="month"
                 checked={topping === "Month"}
                 onChange={onOptionChange}
-            
+
               />
               <label htmlFor="month" className="form-check-label">In Month</label>
             </div>
           </div>
 
-          <div className="row" style={{
-            display: datepick
-          }}>
-            <DateRangePicker
-              onChange={(item) => setState([item.selection])}
-              showSelectionPreview={true}
-              moveRangeOnFirstSelection={true}
-              months={1}
-              ranges={state}
-              direction="vertical"
-            />
-          
-            {/* <input type="text" name="" id="" value={state} className="inputfeild_range" /> */}
-            
+          <div className="" id="rowcolm"
+            style={{
+              display: datepick
+            }}>
+
+
+            <div className="col" >
+              <label htmlFor="">Start :</label>
+              <input type="date" value={start} />
+
+            </div>
+            <div className="col">
+              <label htmlFor="">End :</label>
+              <input type="date" value={end} />
+            </div>
+
+          </div>
+          <div className="" id="rowcolm"
+            style={{
+              display: datepick
+            }}>
+
+
+            <div className="col" >
+              {/* <button onClick={() => { claculateDate }}> Calculate</button> */}
+            </div>
+            <div className="col">
+
+            </div>
+
           </div>
 
           <div className="row" style={{
@@ -346,7 +367,7 @@ function AddNumbers() {
               <option value="100" label="60"></option>
             </datalist>
             <p id="valueDisplay">
-               <input type="text" name="" id="" value={time} className="inputfeild_range"/>
+              <input type="text" name="" id="" value={time} className="inputfeild_range" />
             </p>
             <h5>What interest type do you prefer to apply?</h5>
             <div className="row">
@@ -415,8 +436,19 @@ function AddNumbers() {
               </div>
             </div>
           </div>
-          
+          <div className="row">
+            <div className="col"><label htmlFor=""> Rate : </label>
+              <input
+                type="number"
+                min={0}
+                max={100}
+
+              /></div>
+
+
+          </div>
         </div>
+
         <div className="row" id="flexendcol">
           <h6>
             <sup>*</sup>Condition Apply
