@@ -70,17 +70,17 @@ input[type="radio"] {
 button[type="submit"] {
   width: 200px;
   height: 40px;
-  background-color: #4CAF50;
+  background-color: #ffffff00;
   color: white;
   font-size: 20px;
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  margin-top: 30px;
+  /* margin-top: 30px; */
 }
 
 button[type="submit"]:hover {
-  background-color: #3e8e41;
+  background-color: #ffffff00;
 }
 
 p {
@@ -209,14 +209,14 @@ body {
   opacity: 1;
 }
 
-.row #lastbutton3 a {
+.row #lastbutton3 form {
   text-decoration: none;
   color: #fff;
   font-weight: 700;
-  font-size: 80px;
+  /* font-size: 80px; */
 }
 
-#lastbutton3 a h5 {
+#lastbutton3 form button h5 {
   text-decoration: none;
   color: #fff;
   font-weight: 900;
@@ -233,6 +233,7 @@ body {
 #lastbutton1 h5 {
   color: #f99417;
   font-weight: 900;
+  /* font-size: 250px; */
 }
 
 #flexendcol {
@@ -543,8 +544,8 @@ body {
 }
 
 .container h5 {
-  margin-top: 2vh;
-  margin-bottom: 0.5vh;
+  /* margin-top: 2vh;
+  margin-bottom: 0.5vh; */
   color: #4e31aa;
   font-size: 15px;
 }
@@ -638,7 +639,7 @@ body {
 #lastbutton1 h5 {
   color: #f99417;
   font-weight: 900;
-  font-size: 15px;
+  font-size: 25px;
   margin: 0px;
 }
 
@@ -658,7 +659,7 @@ body {
 }
 
 .datepickerinput {
-  
+
   font-weight: 400;
   font-family: poppins;
   font-size: 15px;

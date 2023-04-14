@@ -213,37 +213,37 @@ function AddNumbers() {
             </div>
             <div className="col cent">
               <button className="btn">
-                <img src={two} alt="" className="imageIcon" />
+                <img src={six} alt="" className="imageIcon" />
               </button>
               <p>Vacation</p>
             </div>
             <div className="col cent">
               <button className="btn">
-                <img src={three} alt="" className="imageIcon" />
+                <img src={seven} alt="" className="imageIcon" />
               </button>
               <p>Vehicle</p>
             </div>
             <div className="col cent">
               <button className="btn ">
-                <img src={four} alt="" className="imageIcon" />
+                <img src={two} alt="" className="imageIcon" />
               </button>
               <p>Educational</p>
             </div>
             <div className="col cent">
               <button className="btn ">
-                <img src={five} alt="" className="imageIcon" />
+                <img src={three} alt="" className="imageIcon" />
               </button>
               <p>Gadget</p>
             </div>
             <div className="col cent">
               <button className="btn ">
-                <img src={six} alt="" className="imageIcon" />
+                <img src={four} alt="" className="imageIcon" />
               </button>
               <p>Kids</p>
             </div>
             <div className="col cent">
               <button className="btn">
-                <img src={seven} alt="" className="imageIcon" />
+                <img src={five} alt="" className="imageIcon" />
               </button>
               <p>Others</p>
             </div>
@@ -472,7 +472,7 @@ function AddNumbers() {
 
         <div className="row" id="flexendcol">
           <h6>
-            <sup>*</sup>Condition Apply
+            <sup>*</sup>Conditions Apply
           </h6>
         </div>
         <div className="row">
@@ -482,9 +482,9 @@ function AddNumbers() {
           </div>
 
           <div className="col" id="lastbutton3">
-            <a href>
-              <h5>Apply Now</h5>
-            </a>
+            <form onSubmit={handleCalculation}>
+              <button type="submit"><h5>Apply Now</h5></button>
+            </form>
           </div>
         </div>
       </div>
