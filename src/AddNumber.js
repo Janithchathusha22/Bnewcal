@@ -136,6 +136,7 @@ function AddNumbers() {
     const time = Math.abs(dateTwo - dateOne);
     const days = Math.ceil(time / (1000 * 60 * 60 * 24));
     document.getElementById("output").innerHTML = days;
+    setTime(days);
   }
   useEffect(() => {
     return () => {
