@@ -38,7 +38,7 @@ function AddNumbers() {
   const [selectedOption, setSelectedOption] = useState("");
   const [onoffswitch, setonoffswitch] = useState(false);
   const [visibility, setvisibility] = useState("hidden");
-  const [topping, setTopping] = useState("Days")
+  const [topping, setTopping] = useState("Daily")
   const [datepick, setdatepick] = useState("inline");
   const [monthpick, setmonthpick] = useState("none")
   const [fvs, setFvs] = useState();
@@ -51,7 +51,7 @@ function AddNumbers() {
   ]);
   const onOptionChange = e => {
     setTopping(e.target.value)
-    if (topping === "Month") {
+    if (topping === "Monthly") {
       setdatepick("inline");
       setmonthpick("none")
     } else {
@@ -81,6 +81,14 @@ function AddNumbers() {
   };
   const handleOptionChange = (event) => {
     setSelectedOption(event.target.value);
+    setTopping(event.target.value)
+    if (topping === "Monthly") {
+      setdatepick("inline");
+      setmonthpick("none")
+    } else {
+      setdatepick("none");
+      setmonthpick("inline")
+    }
   };
 
   const handleCalculation = (event) => {
@@ -287,27 +295,43 @@ function AddNumbers() {
             <div className="col" id="middleRow1">
               {/* <label for="birthdaytime">Birthday (date and time):</label>
               <input type="datetime-local" id="birthdaytime" name="birthdaytime"> */}
-              <input
-                type="radio"
-                name="topping"
-                value="Days"
-                id="days"
-                checked={topping === "Days"}
-                onChange={onOptionChange}
-              />
-              <label htmlFor="regular" className="form-check-label">In Days</label>
+              <label htmlFor="regular" className="form-check-label">
+                {/* <input
+                  type="radio"
+                  name="topping"
+                  value="Days"
+                  id="days"
+                  checked={topping === "Days"}
+                  onChange={onOptionChange}
+                /> */}
+                <input
+                  type="radio"
+                  value="Daily"
+                  name="topping"
+                  checked={topping === "Daily"}
+                  onChange={handleOptionChange}
+                />
+                In Days</label>
             </div>
             <div className="col" id="middleRow2">
-              <input
-                type="radio"
-                name="topping"
-                value="Month"
-                id="month"
-                checked={topping === "Month"}
-                onChange={onOptionChange}
+              <label htmlFor="month" className="form-check-label">
+                {/* <input
+                  type="radio"
+                  name="topping"
+                  value="Month"
+                  id="month"
+                  checked={topping === "Month"}
+                  onChange={onOptionChange}
 
-              />
-              <label htmlFor="month" className="form-check-label">In Month</label>
+                /> */}
+                <input
+                  type="radio"
+                  value="Monthly"
+                  name="topping"
+                  checked={topping === "Monthly"}
+                  onChange={handleOptionChange}
+                />
+                In Month</label>
             </div>
           </div>
 
